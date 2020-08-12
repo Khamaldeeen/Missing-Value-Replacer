@@ -3,6 +3,8 @@ import pandas as pd
 
 #Before running this code, ensure that your missing values are all set to numpy not a number i.e (NaN)
 #Use dataframename.replace('character representing missing value', np.nan, inplace=True)
+imp = pd.read_csv('..\Stutern\SGA08_DATASCI\Missing Data\lung-cancer.data', header = None)
+imp.replace('?', np.nan, inplace=True)
 
 #Function takes in the name of your dataset.
 
@@ -21,7 +23,8 @@ def errorReplacer(data):
                 pass
         elif df[i].dtypes == 'object':
             mode = df[i].mode()
-            df[i].replace(np.nan, mode, inplace = True)
-    return df
+            df[i] = df[i].replace({np.nan : mode.values})
 
 
+errorReplacer(imp)
+print(imp.head())
